@@ -1,11 +1,11 @@
 httptuils
 =======
-A simple `HTTP Request` package for golang. `GET` `POST` `DELETE` `PUT`
+A simple `HTTP Request` package for golang. `GET` `POST` `DELETE` `PUT` change from github.com/kirinlabs/HttpRequest
 
 
 
 ### Installation
-change from github.com/kirinlabs/HttpRequest
+
 
 go get github.com/gkuanine/httputils
 
