@@ -16,6 +16,8 @@ import (
 	"time"
 )
 
+const DEFAULT_RETRY_TIMES = 3
+
 type Request struct {
 	cli               *http.Client
 	transport         *http.Transport
@@ -34,6 +36,7 @@ type Request struct {
 	jar               http.CookieJar
 	proxy             func(*http.Request) (*url.URL, error)
 	checkRedirect     func(req *http.Request, via []*http.Request) error
+	retryTimes        int
 }
 
 func (r *Request) DisableKeepAlives(v bool) *Request {
@@ -302,14 +305,71 @@ func (r *Request) log() {
 }
 
 // Get is a get http request
+func (r *Request) GetRetry(url string, retry int, data ...interface{}) (*Response, error) {
+	var resp *Response
+	var err error
+	if retry == 0 {
+		r.retryTimes = DEFAULT_RETRY_TIMES
+	} else {
+		r.retryTimes = retry
+	}
+	for i := 0; i < r.retryTimes; i++ {
+		resp, err = r.request(http.MethodGet, url, data...)
+		if err == nil {
+			break
+		}
+	}
+	return resp, err
+}
+
+// Get is a get http request
 func (r *Request) Get(url string, data ...interface{}) (*Response, error) {
 	return r.request(http.MethodGet, url, data...)
+}
+
+// Post is a post http request
+func (r *Request) PostRetry(url string, retry int, data ...interface{}) (*Response, error) {
+	var resp *Response
+	var err error
+	if retry == 0 {
+		r.retryTimes = DEFAULT_RETRY_TIMES
+	} else {
+		r.retryTimes = retry
+	}
+	for i := 0; i < r.retryTimes; i++ {
+		resp, err = r.request(http.MethodPost, url, data...)
+		if err == nil {
+			break
+		}
+	}
+	return resp, err
 }
 
 // Post is a post http request
 func (r *Request) Post(url string, data ...interface{}) (*Response, error) {
 	return r.request(http.MethodPost, url, data...)
 }
+
+// PostJson is a post http request
+func (r *Request) PostJsonRetry(url string, retry int, data ...interface{}) (*Response, error) {
+	r.SetHeaders(map[string]string{"Content-Type": "application/json"})
+	var resp *Response
+	var err error
+	if retry == 0 {
+		r.retryTimes = DEFAULT_RETRY_TIMES
+	} else {
+		r.retryTimes = retry
+	}
+	for i := 0; i < r.retryTimes; i++ {
+
+		resp, err = r.request(http.MethodPost, url, data...)
+		if err == nil {
+			break
+		}
+	}
+	return resp, err
+}
+
 func (r *Request) PostJson(url string, data ...interface{}) (*Response, error) {
 	r.SetHeaders(map[string]string{"Content-Type": "application/json"})
 	return r.request(http.MethodPost, url, data...)

@@ -11,7 +11,7 @@ go get github.com/gkuanine/httputils
 ### How do we use HttpRequest?
 
 #### Create request object use http.DefaultTransport
-```go
+
 resp, err := httputils.Get("http://127.0.0.1:8000")
 resp, err := httputils.SetTimeout(5).Get("http://127.0.0.1:8000")
 resp, err := httputils.Debug(true).SetHeaders(map[string]string{}).Get("http://127.0.0.1:8000")
