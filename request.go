@@ -361,7 +361,6 @@ func (r *Request) PostJsonRetry(url string, retry int, data ...interface{}) (*Re
 		r.retryTimes = retry
 	}
 	for i := 0; i < r.retryTimes; i++ {
-
 		resp, err = r.request(http.MethodPost, url, data...)
 		if err == nil {
 			break
