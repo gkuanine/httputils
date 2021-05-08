@@ -375,6 +375,11 @@ func (r *Request) PostJson(url string, data ...interface{}) (*Response, error) {
 	return r.request(http.MethodPost, url, data...)
 }
 
+func (r *Request) JSON() *Request {
+	r.SetHeaders(map[string]string{"Content-Type": "application/json"})
+	return r
+}
+
 // Put is a put http request
 func (r *Request) Put(url string, data ...interface{}) (*Response, error) {
 	return r.request(http.MethodPut, url, data...)
