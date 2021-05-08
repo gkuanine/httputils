@@ -106,6 +106,12 @@ func Post(url string, data ...interface{}) (*Response, error) {
 }
 
 // Post is a post http request
+func PostJson(url string, data ...interface{}) (*Response, error) {
+	r := NewRequest()
+	return r.PostJsonRetry(url, 1, data...)
+}
+
+// Post is a post http request
 func PostJsonRetry(url string, retry int, data ...interface{}) (*Response, error) {
 	r := NewRequest()
 	return r.PostJsonRetry(url, retry, data...)
