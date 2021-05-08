@@ -88,9 +88,27 @@ func Get(url string, data ...interface{}) (*Response, error) {
 	return r.Get(url, data...)
 }
 
+// Get is a get http request
+func GetRetry(url string, retry int, data ...interface{}) (*Response, error) {
+	r := NewRequest()
+	return r.GetRetry(url, retry, data...)
+}
+
+// Post is a post http request
+func PostRetry(url string, retry int, data ...interface{}) (*Response, error) {
+	r := NewRequest()
+	return r.PostRetry(url, retry, data...)
+}
+
 func Post(url string, data ...interface{}) (*Response, error) {
 	r := NewRequest()
 	return r.Post(url, data...)
+}
+
+// Post is a post http request
+func PostJsonRetry(url string, retry int, data ...interface{}) (*Response, error) {
+	r := NewRequest()
+	return r.PostJsonRetry(url, retry, data...)
 }
 
 // Put is a put http request
