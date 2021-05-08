@@ -1,4 +1,4 @@
-HttpRequest
+httptuils
 =======
 A simple `HTTP Request` package for golang. `GET` `POST` `DELETE` `PUT`
 
@@ -6,9 +6,10 @@ A simple `HTTP Request` package for golang. `GET` `POST` `DELETE` `PUT`
 
 ### Installation
 change from github.com/kirinlabs/HttpRequest
+
 go get github.com/gkuanine/httputils
 
-### How do we use HttpRequest?
+### How do we use httptuils?
 
 #### Create request object use http.DefaultTransport
 ```go
