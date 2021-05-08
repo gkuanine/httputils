@@ -85,7 +85,7 @@ func Transport(v *http.Transport) *Request {
 // Get is a get http request
 func Get(url string, data ...interface{}) (*Response, error) {
 	r := NewRequest()
-	return r.Get(url, data...)
+	return r.GetRetry(url, 1, data...)
 }
 
 // Get is a get http request
@@ -94,15 +94,15 @@ func GetRetry(url string, retry int, data ...interface{}) (*Response, error) {
 	return r.GetRetry(url, retry, data...)
 }
 
+func Post(url string, data ...interface{}) (*Response, error) {
+	r := NewRequest()
+	return r.PostRetry(url, 1, data...)
+}
+
 // Post is a post http request
 func PostRetry(url string, retry int, data ...interface{}) (*Response, error) {
 	r := NewRequest()
 	return r.PostRetry(url, retry, data...)
-}
-
-func Post(url string, data ...interface{}) (*Response, error) {
-	r := NewRequest()
-	return r.Post(url, data...)
 }
 
 // Post is a post http request

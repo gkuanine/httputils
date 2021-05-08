@@ -322,11 +322,6 @@ func (r *Request) GetRetry(url string, retry int, data ...interface{}) (*Respons
 	return resp, err
 }
 
-// Get is a get http request
-func (r *Request) Get(url string, data ...interface{}) (*Response, error) {
-	return r.request(http.MethodGet, url, data...)
-}
-
 // Post is a post http request
 func (r *Request) PostRetry(url string, retry int, data ...interface{}) (*Response, error) {
 	var resp *Response
@@ -343,11 +338,6 @@ func (r *Request) PostRetry(url string, retry int, data ...interface{}) (*Respon
 		}
 	}
 	return resp, err
-}
-
-// Post is a post http request
-func (r *Request) Post(url string, data ...interface{}) (*Response, error) {
-	return r.request(http.MethodPost, url, data...)
 }
 
 // PostJson is a post http request
